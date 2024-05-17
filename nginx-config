@@ -27,3 +27,5 @@ server {
         root /usr/share/nginx/html;
     }
 }
+
+# Adding this line for checking the differences in between DC and DR
