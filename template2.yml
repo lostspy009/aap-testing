@@ -3,10 +3,21 @@
   hosts: localhost
   gather_facts: no
   tasks:
-    - name: Display loaded facts
+    - name: Retrieve facts using get_stats
+      set_fact:
+        app_version: "{{ lookup('awx', 'job_template.app_version') }}"
+        db_host: "{{ lookup('awx', 'job_template.db_host') }}"
+        db_port: "{{ lookup('awx', 'job_template.db_port') }}"
+        api_endpoint: "{{ lookup('awx', 'job_template.api_endpoint') }}"
+
+    - name: Display retrieved facts
       debug:
         msg:
           - "App Version: {{ app_version }}"
           - "Database Host: {{ db_host }}"
           - "Database Port: {{ db_port }}"
           - "API Endpoint: {{ api_endpoint }}"
+
+    - name: Use retrieved facts (example task)
+      debug:
+        msg: "Connecting to database at {{ db_host }}:{{ db_port }}"
