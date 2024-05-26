@@ -6,9 +6,9 @@
     - name: Set application facts
       set_fact:
         app_version: "1.0.0"
-        db_host: "database.example.com"
+        db_host: "databases.example.com"
         db_port: 5432
-        api_endpoint: "https://api.example.com"
+        api_endpoint: "https://api.ocp4.example.com:6443"
 
     - name: Store facts using set_stats
       set_stats:
