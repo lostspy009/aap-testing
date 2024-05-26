@@ -3,12 +3,12 @@
   hosts: localhost
   gather_facts: no
   tasks:
-    - name: Retrieve facts using get_stats
+    - name: Retrieve facts from workflow variables
       set_fact:
-        app_version: "{{ lookup('awx', 'job_template.app_version') }}"
-        db_host: "{{ lookup('awx', 'job_template.db_host') }}"
-        db_port: "{{ lookup('awx', 'job_template.db_port') }}"
-        api_endpoint: "{{ lookup('awx', 'job_template.api_endpoint') }}"
+        app_version: "{{ lookup('env', 'APP_VERSION') }}"
+        db_host: "{{ lookup('env', 'DB_HOST') }}"
+        db_port: "{{ lookup('env', 'DB_PORT') }}"
+        api_endpoint: "{{ lookup('env', 'API_ENDPOINT') }}"
 
     - name: Display retrieved facts
       debug:
