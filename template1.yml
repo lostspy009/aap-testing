@@ -9,13 +9,11 @@
         db_host: "database.example.com"
         db_port: 5432
         api_endpoint: "https://api.example.com"
-      register: app_facts
 
-    - name: Save facts to a file
-      copy:
-        content: |
+    - name: Store facts using set_stats
+      set_stats:
+        data:
           app_version: "{{ app_version }}"
           db_host: "{{ db_host }}"
           db_port: "{{ db_port }}"
           api_endpoint: "{{ api_endpoint }}"
-        dest: /tmp/app_facts.yml
