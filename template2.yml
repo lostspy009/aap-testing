@@ -3,19 +3,10 @@
   hosts: localhost
   gather_facts: no
   tasks:
-    - name: Read facts from file
-      include_vars:
-        file: /tmp/app_facts.yml
-      register: loaded_facts
-
     - name: Display loaded facts
       debug:
         msg:
-          - "App Version: {{ loaded_facts.app_version }}"
-          - "Database Host: {{ loaded_facts.db_host }}"
-          - "Database Port: {{ loaded_facts.db_port }}"
-          - "API Endpoint: {{ loaded_facts.api_endpoint }}"
-
-    - name: Use loaded facts (example task)
-      debug:
-        msg: "Connecting to database at {{ loaded_facts.db_host }}:{{ loaded_facts.db_port }}"
+          - "App Version: {{ app_version }}"
+          - "Database Host: {{ db_host }}"
+          - "Database Port: {{ db_port }}"
+          - "API Endpoint: {{ api_endpoint }}"
