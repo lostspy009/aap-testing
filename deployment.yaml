@@ -2,7 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sample-deployment
-  namespace: your-namespace
+  labels:
+    app: sample-app
 spec:
   replicas: 3
   selector:
@@ -15,9 +16,9 @@ spec:
     spec:
       containers:
       - name: sample-container
-        image: your-image:v1.0
+        image: nginx:latest
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         env:
         - name: TZ
           value: "UTC +530"  # Timezone
@@ -35,28 +36,11 @@ spec:
           valueFrom:
             secretKeyRef:
               name: db-secret
-              key: password  # Database password from a secret
-        - name: API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: api-key-secret
-              key: key  # API key from a secret
-        - name: MAX_CONNECTIONS
-          value: "100"  # Maximum connections
-        - name: CACHE_SIZE
-          value: "256MB"  # Cache size
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 8080
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /ready
-            port: 8080
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        resources:
-          limits:
-            memory: "1024Mi
+              key: password
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: sample-volume
+      volumes:
+      - name: sample-volume
+        persistentVolumeClaim:
+          claimName: sample-pvc
