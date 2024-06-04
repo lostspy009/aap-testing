@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: sample-service-prod
+  name: sample-service-stage
   labels:
-    app: sample-app
+    app: sample-app-stage
 spec:
   selector:
-    app: sample-app
+    app: sample-app-stage
   ports:
     - protocol: TCP
       port: 80

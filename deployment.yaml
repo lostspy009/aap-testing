@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-deployment
+  name: sample-deployment-stage
   labels:
-    app: sample-app
+    app: sample-app-stage
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: sample-app
+      app: sample-app-stage
   template:
     metadata:
       labels:
-        app: sample-app
+        app: sample-app-stage
     spec:
       containers:
       - name: sample-container
@@ -23,23 +23,23 @@ spec:
         - name: TZ
           value: "UTC +530"  # Timezone
         - name: ENVIRONMENT
-          value: "production"  # Environment
+          value: "stage  # Environment
         - name: LOG_LEVEL
-          value: "Debug"  # Logging level
+          value: "Info  # Logging level
         - name: DB_HOST
           value: "database-host"  # Database host
         - name: DB_PORT
           value: "5432"  # Database port
         - name: DB_USER
-          value: "dbuser"  # Database user
+          value: "dbuser  # Database user
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: db-secret
+              name: sample-deployment-stage
               key: password
         volumeMounts:
         - mountPath: /usr/share/nginx/html
-          name: sample-volume
+          name: sample-deployment-stage
       volumes:
       - name: sample-volume
         persistentVolumeClaim:
